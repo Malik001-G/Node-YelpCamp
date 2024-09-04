@@ -20,17 +20,20 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.get("/", (req, res) => {
-  //   res.send("Hello from yelp camp");
   res.render("home");
 });
 
-app.get("/makecampground", async (req, res) => {
-  const camp = new Campground({
-    title: "My backyard",
-    description: "Keep camping",
-  });
-  await camp.save();
-  res.send(camp);
+// All Campgrounds
+app.get("/campgrounds", async (req, res) => {
+  const campgrounds = await Campground.find({});
+  res.render("campgrounds/index", { campgrounds });
+});
+
+// Show campground
+app.get("/campgrounds/:id", async (req, res) => {
+  const { id } = req.params;
+  const campground = await Campground.findById(id);
+  res.render("campgrounds/show", {campground});
 });
 
 app.listen(3000, () => {
