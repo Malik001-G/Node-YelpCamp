@@ -39,10 +39,14 @@ app.get("/campgrounds/new", (req, res) => {
 });
 
 //Where the form is submitted to - POST
-app.post("/campgrounds", async (req, res) => {
+app.post("/campgrounds", async (req, res, next) => {
+  try{
   const campground = new Campground(req.body.campground);
   await campground.save();
   res.redirect(`/campgrounds/${campground._id}`);
+  }catch(e){
+    next(e);
+  }
 });
 
 // Show campground
@@ -69,11 +73,15 @@ app.put("/campgrounds/:id", async (req, res) => {
 });
 
 //delete campground
-
 app.delete("/campgrounds/:id", async (req, res) => {
   const { id } = req.params;
   await Campground.findByIdAndDelete(id);
   res.redirect("/campgrounds");
+});
+
+//Basic Error Handler
+app.use((err, req, res, next) => {
+  res.send("Something went wrong");
 });
 
 app.listen(3000, () => {

@@ -3,7 +3,12 @@
 <div class="row">
   <h1 class="text-center">Edit Campground</h1>
   <div class="col-6 offset-3">
-    <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="post">
+    <form
+      action="/campgrounds/<%= campground._id %>?_method=PUT"
+      method="post"
+      class="validated-form"
+      novalidate
+    >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input
@@ -12,7 +17,9 @@
           class="form-control"
           name="campground[title]"
           value="<%= campground.title %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
@@ -22,7 +29,9 @@
           class="form-control"
           name="campground[location]"
           value="<%= campground.location %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Image Url</label>
@@ -32,7 +41,9 @@
           class="form-control"
           name="campground[image]"
           value="<%= campground.image %>"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Campground Price</label>
@@ -47,7 +58,9 @@
             aria-label="price"
             aria-describedby="price-label"
             value="<%= campground.price %>"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
       </div>
 
@@ -58,9 +71,11 @@
           id="description"
           class="form-control"
           name="campground[description]"
+          required
         >
  <%= campground.description %></textarea
         >
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <button class="btn btn-info">Update Campground</button>
