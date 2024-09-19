@@ -5,6 +5,7 @@ const ejsMate = require("ejs-mate");
 const { campgroundSchema } = require("./schemas.js");
 const methodOverride = require("method-override");
 const Campground = require("./models/campground");
+const Review = require("./models/review");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
 mongoose.connect("mongodb://0.0.0.0:27017/YelpCamp", {
@@ -28,15 +29,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 const validateCampground = (req, res, next) => {
-
   const { error } = campgroundSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map(el => el.message).join('/')
+    const msg = error.details.map((el) => el.message).join("/");
     throw new ExpressError(msg, 400);
-  }else{
+  } else {
     next();
   }
-}
+};
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -55,7 +55,8 @@ app.get("/campgrounds/new", (req, res) => {
 
 //Where the form is submitted to - POST
 app.post(
-  "/campgrounds", validateCampground,
+  "/campgrounds",
+  validateCampground,
   catchAsync(async (req, res, next) => {
     // if (!req.body.campground)
     //   throw new ExpressError("Invalid Campground Data", 400);
@@ -87,7 +88,8 @@ app.get(
 
 //Where the edit form is submitted to
 app.put(
-  "/campgrounds/:id",validateCampground,
+  "/campgrounds/:id",
+  validateCampground,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findByIdAndUpdate(id, {
@@ -104,6 +106,21 @@ app.delete(
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect("/campgrounds");
+  })
+);
+
+//Review Routes
+
+//Create a review
+app.post(
+  "/campgrounds/:id/reviews",
+  catchAsync(async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
   })
 );
 
