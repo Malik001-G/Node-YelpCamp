@@ -22,7 +22,7 @@
 
   const fetchImages = async () => {
     const url = "https://api.unsplash.com/collections/4480516/photos";
-    const accessKey = 'UHfmGcR62iLwrAEIAqVdFlBW9hzSxv6MLAsnyLLtXjI';
+    const accessKey = "UHfmGcR62iLwrAEIAqVdFlBW9hzSxv6MLAsnyLLtXjI";
 
     try {
       const response = await fetch(url, {
@@ -60,13 +60,15 @@
     for (let i = 0; i < 50; i++) {
       const random1000 = Math.floor(Math.random() * 1000);
       const randomImage = sample(imageUrls);
-const price = Math.floor(Math.random() * 20) + 10;
+      const price = Math.floor(Math.random() * 20) + 10;
       const camp = new Campground({
+        author: "66f0bd6d2034a95aad3506c7",
         location: `${cities[random1000].city}, ${cities[random1000].state}`,
         title: `${sample(descriptors)} ${sample(places)}`,
         image: randomImage,
-        description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam',
-        price
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam",
+        price,
       });
 
       await camp.save();
