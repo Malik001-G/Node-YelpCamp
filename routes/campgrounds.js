@@ -9,24 +9,29 @@ const {
   isAuthor,
 } = require("../middleware.js");
 
-// All Campgrounds
-router.get("/", catchAsync(campgrounds.index));
+//Regrouping the routes
 
-//Render form to create campground
+router
+  .route("/")
+  .get(catchAsync(campgrounds.index))
+  .post(
+    isLoggedIn,
+    validateCampground,
+    catchAsync(campgrounds.createCampground)
+  );
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 
-//Where the form is submitted to - POST
-router.post(
-  "/",
-  isLoggedIn,
-  validateCampground,
-  catchAsync(campgrounds.createCampground)
-);
+router
+  .route("/:id")
+  .get(catchAsync(campgrounds.showCampground))
+  .put(
+    isLoggedIn,
+    isAuthor,
+    validateCampground,
+    catchAsync(campgrounds.updateCampground)
+  )
+  .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
 
-// Show campground
-router.get("/:id", catchAsync(campgrounds.showCampground));
-
-//Render form to edit campground
 router.get(
   "/:id/edit",
   isLoggedIn,
@@ -34,21 +39,46 @@ router.get(
   catchAsync(campgrounds.renderEditForm)
 );
 
-//Where the edit form is submitted to
-router.put(
-  "/:id",
-  isLoggedIn,
-  isAuthor,
-  validateCampground,
-  catchAsync(campgrounds.updateCampground)
-);
+// // All Campgrounds
+// router.get("/", catchAsync(campgrounds.index));
 
-//delete campground
-router.delete(
-  "/:id",
-  isLoggedIn,
-  isAuthor,
-  catchAsync(campgrounds.deleteCampground)
-);
+// //Render form to create campground
+// router.get("/new", isLoggedIn, campgrounds.renderNewForm);
+
+// //Where the form is submitted to - POST
+// router.post(
+//   "/",
+//   isLoggedIn,
+//   validateCampground,
+//   catchAsync(campgrounds.createCampground)
+// );
+
+// // Show campground
+// router.get("/:id", catchAsync(campgrounds.showCampground));
+
+// //Render form to edit campground
+// router.get(
+//   "/:id/edit",
+//   isLoggedIn,
+//   isAuthor,
+//   catchAsync(campgrounds.renderEditForm)
+// );
+
+// //Where the edit form is submitted to
+// router.put(
+//   "/:id",
+//   isLoggedIn,
+//   isAuthor,
+//   validateCampground,
+//   catchAsync(campgrounds.updateCampground)
+// );
+
+// //delete campground
+// router.delete(
+//   "/:id",
+//   isLoggedIn,
+//   isAuthor,
+//   catchAsync(campgrounds.deleteCampground)
+// );
 
 module.exports = router;
