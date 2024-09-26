@@ -10,20 +10,21 @@ const {
 } = require("../middleware.js");
 
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const { storage } = require("../cloudinary");
+const upload = multer({ storage });
 //Regrouping the routes
 
 router
   .route("/")
   .get(catchAsync(campgrounds.index))
   // .post(
-  //   isLoggedIn,  
+  //   isLoggedIn,
   //   validateCampground,
   //   catchAsync(campgrounds.createCampground)
   // );
-  .post(upload.single("image"), (req, res) => {
-    console.log(req.body, req.file);
-    res.send("It workeddd")
+  .post(upload.array("image"), (req, res) => {
+    console.log(req.body, req.files);
+    res.send("It workeddd");
   });
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 
