@@ -65,7 +65,16 @@
         author: "66f0bd6d2034a95aad3506c7",
         location: `${cities[random1000].city}, ${cities[random1000].state}`,
         title: `${sample(descriptors)} ${sample(places)}`,
-        image: randomImage,
+        images: [
+          {
+            url: "https://res.cloudinary.com/dhm1tyybz/image/upload/v1727352177/New%20Yelpcamp/gja5csajmt86dial9aru.jpg",
+            filename: "New Yelpcamp/gja5csajmt86dial9aru",
+          },
+          {
+            url: "https://res.cloudinary.com/dhm1tyybz/image/upload/v1727352179/New%20Yelpcamp/geh1bi0ewmwhlihkoir6.png",
+            filename: "New Yelpcamp/geh1bi0ewmwhlihkoir6",
+          },
+        ],
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam",
         price,
