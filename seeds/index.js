@@ -78,6 +78,10 @@
         description:
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam",
         price,
+        geometry: {
+          type:"Point",
+          coordinates:[-113.1331, 47.0202]
+        }
       });
 
       await camp.save();
