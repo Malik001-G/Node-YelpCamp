@@ -39,7 +39,7 @@
       const data = await response.json();
 
       // Log the data to inspect its structure
-      console.log("Unsplash API Response:", data);
+      // console.log("Unsplash API Response:", data);
 
       // Check if data is an array before mapping
       if (Array.isArray(data)) {
@@ -57,7 +57,7 @@
     await Campground.deleteMany({});
     const imageUrls = await fetchImages();
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
       const random1000 = Math.floor(Math.random() * 1000);
       const randomImage = sample(imageUrls);
       const price = Math.floor(Math.random() * 20) + 10;
@@ -67,11 +67,11 @@
         title: `${sample(descriptors)} ${sample(places)}`,
         images: [
           {
-            url: "https://res.cloudinary.com/dhm1tyybz/image/upload/v1727352177/New%20Yelpcamp/gja5csajmt86dial9aru.jpg",
+            url: "https://res.cloudinary.com/dhm1tyybz/image/upload/v1727525479/New%20Yelpcamp/btxggo6nqpmfyfxbkddl.jpg",
             filename: "New Yelpcamp/gja5csajmt86dial9aru",
           },
           {
-            url: "https://res.cloudinary.com/dhm1tyybz/image/upload/v1727352179/New%20Yelpcamp/geh1bi0ewmwhlihkoir6.png",
+            url: "https://res.cloudinary.com/dhm1tyybz/image/upload/v1727525478/New%20Yelpcamp/kuzrt0j5s9rwtcqtfopd.jpg",
             filename: "New Yelpcamp/geh1bi0ewmwhlihkoir6",
           },
         ],
@@ -80,7 +80,10 @@
         price,
         geometry: {
           type:"Point",
-          coordinates:[-113.1331, 47.0202]
+          coordinates: [
+            cities[random1000].longitude,
+            cities[random1000].latitude,
+          ]
         }
       });
 
