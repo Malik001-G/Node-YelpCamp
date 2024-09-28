@@ -57,7 +57,7 @@
     await Campground.deleteMany({});
     const imageUrls = await fetchImages();
 
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 100; i++) {
       const random1000 = Math.floor(Math.random() * 1000);
       const randomImage = sample(imageUrls);
       const price = Math.floor(Math.random() * 20) + 10;
