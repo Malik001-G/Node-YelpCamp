@@ -19,9 +19,8 @@ body {
   border-bottom: 0.25rem solid transparent;
 }
 .nav-link.active {
-    color: white;
-    border-bottom-color:white;
-
+  color: white;
+  border-bottom-color: white;
 }
 
 .nav-link:hover {
@@ -33,4 +32,5 @@ body {
   color: #333;
   font-size: 14px;
   text-shadow: none;
+  outline: none;
 }
